@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡Sorpresa!</title>
+  <style>
+    body {
+      background: black;
+      color: lime;
+      font-family: monospace;
+      text-align: center;
+      padding: 20px;
+    }
+    .fake-window {
+      position: absolute;
+      border: 2px solid red;
+      background: white;
+      width: 300px;
+      height: 150px;
+      padding: 10px;
+      box-shadow: 0 0 20px red;
+    }
+    .close-btn {
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #startBtn {
+      padding: 20px;
+      font-size: 20px;
+      background: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Te atreves?</h1>
+  <button id="startBtn">yeeeeeeeeeu</button>
+
+  <audio id="scream" src="audio/un-video-mas-mi-gente.mp3"></audio>
+
+  <script>
+    const startBtn = document.getElementById("startBtn");
+    const scream = document.getElementById("scream");
+
+    function vibrar() {
+      if ("vibrate" in navigator) {
+        navigator.vibrate([500, 300, 500, 300, 500]);
+      }
+    }
+
+    function pantallaCompleta() {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+    }
+
+    function crearVentanasFalsas() {
+      for (let i = 0; i < 5; i++) {
+        const ventana = document.createElement("div");
+        ventana.classList.add("fake-window");
+        ventana.style.top = Math.random() * window.innerHeight + "px";
+        ventana.style.left = Math.random() * window.innerWidth + "px";
+        ventana.innerHTML = `<h3>ERROR</h3><p>Algo salió mal...</p><button class="close-btn">Cerrar</button>`;
+        document.body.appendChild(ventana);
+      }
+    }
+
+    startBtn.addEventListener("click", () => {
+      pantallaCompleta();
+      vibrar();
+      scream.play();
+      crearVentanasFalsas();
+    });
+
+    // Evitar que se bajen los sonidos automáticos (no se puede forzar volumen)
+  </script>
+</body>
+</html>
